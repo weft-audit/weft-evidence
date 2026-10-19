@@ -11,7 +11,7 @@
 > The future of software isn't about syntax; it's about Intent and Governance.
 
 **2026-10-19 实录**：治理层六件套（哨兵/完成否定/判断技能/账本/断点/评分官）
-核心链路 **2–3 小时**移植进 DSH 0.2.1-rc.2 并全自动发布五仓；
+核心链路 **3 小时 10 分钟**（23:39→02:52）移植进 DSH 0.2.1-rc.2 并全自动发布五仓；
 期间发现并修复一个官方静默禁用缺陷（官方仓库 Discussion #10203）。
 全程记录：[DSH 多 Agent 拓扑迁移实战记录](docs/reports/2026-10-19-DSH多Agent拓扑迁移实战记录.md)
 ｜ [最终报告](docs/reports/2026-10-19-DSH生态移植与连接层报告.md)
