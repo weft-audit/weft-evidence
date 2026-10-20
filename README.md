@@ -30,6 +30,18 @@
 模型没有变，变的是编排。评分 rubric 原文、脚本、历次报告全在本仓库，
 `python regression.py` 一键复跑。
 
+复跑前需从环境中提供本机 AgentScope 配置，不在仓库保存任何 ID 或凭据：
+
+```text
+AGENTSCOPE_BASE
+AGENTSCOPE_DOER_AGENT
+AGENTSCOPE_CONTROL_AGENT
+AGENTSCOPE_AUDITOR_AGENT
+AGENTSCOPE_AUDITOR_SESSION
+AGENTSCOPE_DEEPSEEK_CREDENTIAL_ID
+JARVIS_EVAL_DIR
+```
+
 ### 与生态内现有方案的区别（据对方 README 核实，2026-10-19）
 
 | 方案 | 它们做的 | 我们的差异 |

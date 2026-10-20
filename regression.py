@@ -20,7 +20,7 @@ import urllib.error
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
-BASE = "http://127.0.0.1:8000"
+BASE = os.getenv("AGENTSCOPE_BASE", "http://127.0.0.1:8000")
 
 
 def _bootstrap_key():
@@ -29,18 +29,37 @@ def _bootstrap_key():
         return json.loads(r.read().decode("utf-8"))["api_key"]
 
 
-HDRS = {
-    "X-User-ID": "user",
-    "X-API-Key": _bootstrap_key(),
-    "Content-Type": "application/json; charset=utf-8",
-}
+def _headers():
+    return {
+        "X-User-ID": "user",
+        "X-API-Key": _bootstrap_key(),
+        "Content-Type": "application/json; charset=utf-8",
+    }
 
-DOER_AGENT = "91bdfea325304d1ba361191cfa832c7a"
-CONTROL_AGENT = "89383f1b3ba146b2b47b14c1c3355ecb"
-AUDITOR_AGENT = "78744b209d264a1e9954ae9b9479c1fa"
-AUDITOR_SESSION = "2d97d03555554bdbb77bcf2cb2832539"
-CRED = "7ae67e4c773240f7aade02acd6efb37f"
-EVAL_DIR = r"C:\workspace\Jarvis\_eval"
+DOER_AGENT = os.getenv("AGENTSCOPE_DOER_AGENT", "")
+CONTROL_AGENT = os.getenv("AGENTSCOPE_CONTROL_AGENT", "")
+AUDITOR_AGENT = os.getenv("AGENTSCOPE_AUDITOR_AGENT", "")
+AUDITOR_SESSION = os.getenv("AGENTSCOPE_AUDITOR_SESSION", "")
+CRED = os.getenv("AGENTSCOPE_DEEPSEEK_CREDENTIAL_ID", "")
+EVAL_DIR = os.getenv(
+    "JARVIS_EVAL_DIR",
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "_eval"),
+)
+
+
+def require_runtime_config():
+    required = {
+        "AGENTSCOPE_DOER_AGENT": DOER_AGENT,
+        "AGENTSCOPE_CONTROL_AGENT": CONTROL_AGENT,
+        "AGENTSCOPE_AUDITOR_AGENT": AUDITOR_AGENT,
+        "AGENTSCOPE_AUDITOR_SESSION": AUDITOR_SESSION,
+        "AGENTSCOPE_DEEPSEEK_CREDENTIAL_ID": CRED,
+    }
+    missing = [name for name, value in required.items() if not value.strip()]
+    if missing:
+        raise SystemExit(
+            "missing required environment variables: " + ", ".join(missing)
+        )
 
 EDGE_PLAYWRIGHT = {
     "name": "playwright",
@@ -158,7 +177,7 @@ def call(path, payload=None, method="GET"):
     data = None
     if payload is not None:
         data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
-    req = urllib.request.Request(BASE + path, data=data, headers=HDRS, method=method)
+    req = urllib.request.Request(BASE + path, data=data, headers=_headers(), method=method)
     try:
         with urllib.request.urlopen(req, timeout=180) as resp:
             return resp.status, resp.read().decode("utf-8")
@@ -340,6 +359,7 @@ def main():
     ap.add_argument("--skip-browser", action="store_true",
                     help="跳过浏览器 5 条（T6-T10）")
     args = ap.parse_args()
+    require_runtime_config()
 
     TASK_MAP = {t[0]: t for t in TASKS}
     rows = []
