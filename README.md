@@ -1,4 +1,7 @@
-# weft — 控制论实验报告（可复现证据包）
+# weft evidence — 意图驱动平台 PoC 的可复现证据包
+
+> 本仓库为 [weft-audit](https://github.com/weft-audit/weft-audit) 的底层安全与
+> 治理引擎 PoC 主张提供可复现证据；它是证据层，不替代项目主页。
 
 | 核心指标 | 数据 |
 |---|---|
