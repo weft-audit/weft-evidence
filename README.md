@@ -83,9 +83,12 @@ OpenTelemetry GenAI 语义**；迁移到 OTel（span 树、可被 Langfuse/Jaege
 ```
 
 诚实边界：账本已在桌面端生产环境落盘三条事件，但 provider/model 解析为
-unknown、token 为 0——字段映射待补，已知边界在案。守门人协议同日完成全链
-实测：状态机成功拦截非工作意图，并成功拉起三层审计；完整联调日志留待
-面试现场演示。
+unknown、token 为 0——字段映射待补，已知边界在案。2026-10-21 又完成了
+一次经所有者确认的线上单入口实跑：自然语言任务 → 目标编译器 `READY` →
+多 Agent 工作链 → 独立审计；脱敏记录见
+[单入口实跑记录](docs/reports/2026-10-21-live-intent-entry.md)。
+这次只证明一条简单只读任务可跑通，不等同于任意复杂任务、写操作或长期稳定性
+已经通过。
 
 ### 自我纠错实录
 
@@ -125,6 +128,8 @@ unknown、token 为 0——字段映射待补，已知边界在案。守门人�
 - [评估方法-20261018.md](评估方法-20261018.md) — rubric 原文与已知局限
 - [dialogist.md](dialogist.md) — 对话者机制
 - [docs/architecture.md](docs/architecture.md) — 架构图（审计环/四层记忆/防自噬）
+- [docs/reports/2026-10-21-live-intent-entry.md](docs/reports/2026-10-21-live-intent-entry.md)
+  — 单入口实跑的可核验边界
 - [docs/faq.md](docs/faq.md) — 常见质问与回答
 - [docs/roadmap.md](docs/roadmap.md) — 公开路线图
 
