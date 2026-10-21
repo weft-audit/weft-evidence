@@ -1,4 +1,8 @@
-# 架构（公开版）
+# 项目架构与证据边界（公开版）
+
+> 本页只定义项目级目标架构、证据口径和诚实边界。可执行原语与通用审计环以
+> [weft/docs/architecture.md](https://github.com/weft-audit/weft/blob/main/docs/architecture.md)
+> 为权威源，本页不复制其接口细节。
 
 ## 系统理念（2026-10-19 定稿）
 
